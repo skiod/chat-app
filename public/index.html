@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>hello world</title>
+    </head>
+    <body>
+        <ul id="cont">
+            <li id="chat">salut</li>
+        </ul>
+        <input id="input" type="text" />
+        <button id="btn">send</button>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://localhost:3000');
+        
+        var container = document.getElementById("cont");
+        
+       
+
+        document.getElementById("btn").onclick = () => {
+            console.log("clicked",document.getElementById("input").value)
+            
+            socket.emit('chat',{message : document.getElementById("input").value} )
+        }
+
+        socket.on('chat', function(data) {
+            var Li = document.createElement("li");
+            container.appendChild(Li)
+            Li.innerHTML = data.message.message
+            console.log('data',data)
+        });
+
+
+    
+    </script>
+</html>
